@@ -108,7 +108,7 @@
     }
 
     .ham-menue{
-      height: 30vh;
+      height: 100vh;
        Button{
         font-size: 13px;
         
@@ -135,7 +135,7 @@
   }
 
   .ham-menue{
-    height: 23vh;
+    height: 100vh;
   }
 }
 
