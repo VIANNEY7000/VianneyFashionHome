@@ -1,0 +1,25 @@
+.footer{
+    background-color: black;
+    color: white;
+    height: 10vh;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.footer-container a{
+margin: 20px;
+color: white;
+text-decoration: none;
+}
+
+.footer-container a:hover{
+    color: blue;
+}
+
+@media (max-width:600px){
+    .footer{
+        font-size: 12px;
+        height: 5vh;
+        padding: 10px 0px;
+    }
+}

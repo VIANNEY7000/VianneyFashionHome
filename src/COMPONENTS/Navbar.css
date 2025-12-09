@@ -1,0 +1,141 @@
+
+
+.navbar .logo{
+  font-size: 23px;
+ span{
+  color: blue;
+  font-size: 40px;
+ }
+}
+
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  background-color:gainsboro ;
+  height: 10vh;
+}
+
+
+.navbar ul{
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  list-style: none;
+  font-weight: 600;
+  
+
+  
+  Button{
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 600;
+  }
+
+}
+
+.navbar ul Button:hover{
+  color: black;
+  background-color: white;
+  border: 0.5px solid black;
+}
+
+.navbar ul li{
+  padding: 7px 15px;
+  border-radius: 10px;
+
+}
+
+.navbar ul li:hover{
+  background-color: black;
+  color: white;
+}
+
+
+.hambugger{
+  display: none;
+}
+
+.ham-menue.show{
+  /* display: flex; */
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ham-menue{
+
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  top: 9%;
+  right: 0;
+  gap: 50px;
+  height: 40vh;
+  width:170px;
+  position: fixed;
+  box-shadow: 4px 4px 4px 4px rgba(4, 21, 4, 0.222);
+  opacity: 0;
+  pointer-events:none;
+  z-index: 20002;
+  display: flex;
+   display: block;
+   
+  ul{
+    display: block;
+    margin: 30px;
+    /* padding-top: 4px; */
+    
+  }
+
+  li{
+    font-size: 19px;
+    margin-bottom: 10px;
+  
+  }
+
+}
+
+@media (max-width:900px) {
+    .menue{
+        display: none;
+    }
+
+    .hambugger{
+      display: block;
+      border-radius: 10px;
+    }
+
+    .ham-menue{
+      height: 30vh;
+       Button{
+        font-size: 13px;
+        
+      
+       }
+     
+
+      li{
+        display: block;
+        padding-bottom: 20px;
+        color: black;
+      }
+    }
+   
+
+} 
+
+@media (max-width:600px){
+  .navbar .logo{
+    font-size: 19px;
+    span{
+      font-size: 35px;
+    }
+  }
+
+  .ham-menue{
+    height: 23vh;
+  }
+}
+
