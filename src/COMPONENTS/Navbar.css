@@ -29,12 +29,17 @@
   
   Button{
     background-color: black;
-    color: white;
+    text-decoration: none;
     padding: 10px 20px;
     font-weight: 600;
+    color: white;
+    text-decoration-line: none;
+    text-decoration: none;
   }
 
+  
 }
+
 
 .navbar ul Button:hover{
   color: black;
@@ -111,6 +116,7 @@
       height: 100vh;
        Button{
         font-size: 13px;
+        color: white;
         
       
        }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {Button} from '@mui/material'
 import {FiMenu} from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import "./Navbar.css";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
           <li>WOMEN</li>
           
           
-          <Button>LOGIN</Button>
+          <Button><Link to='/Login'>LOGIN</Link></Button>
        </ul>
       </div>
 
@@ -37,8 +38,8 @@ function App() {
         <ul onClick={() => setOpen(false)}>
           <li>MEN</li>
           <li>WOMEN</li>
-           <Button>LOGIN</Button>
-        </ul>
+         <Button><Link to='/Login'>LOGIN</Link></Button>  
+         </ul>
       </div>
 
     </nav>

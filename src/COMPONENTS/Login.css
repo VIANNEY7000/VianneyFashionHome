@@ -1,0 +1,102 @@
+.home-link{
+    color: black;
+}
+
+.login{
+    background-color: aliceblue;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  
+}
+
+.login-box{
+    background-color: white;
+    width: 45%;
+    height: 60vh;
+    padding: 20px ;
+    border-radius: 20px;
+    span{
+        color: blue;
+        font-size: 45px;
+        font-weight: 100;
+    }
+    h1{
+        font-weight: 100;
+    }
+
+    input{
+        width: 90%;
+        border-radius: 15px;
+        height: 5dvh;
+        font-size: 18px;
+        padding-left: 10px;
+        border: 0.5px solid;
+    }
+
+    Button{
+        background-color: black;
+        color: white;
+        width: 91%;
+        border-radius: 20px;
+        margin-top: 20px;
+        transition: 0.5s ease-in-out;
+    }
+
+    p{
+        padding: 20px 0px;
+    }
+}
+
+.login-box Button:hover{
+    background-color: aliceblue;
+    color: black;
+}
+
+.lock{
+    color: white;
+    background-color: black;
+    padding: 12px;
+    border-radius: 50%;
+    margin: 20px 0px;
+}
+
+@media (max-width:900px){
+    .login-box{
+        font-size: 17px;
+        width: 70%;
+        h1{
+            font-size: 25px;
+        }
+    }
+
+    .login-box span{
+        font-size: 40px;
+    }
+}
+
+@media (max-width:600px){
+     .login-box{
+        font-size: 17px;
+        width: 85%;
+        height: 47vh;
+        
+        h1{
+            font-size: 25px;
+        }
+        p{
+            font-size: 16px;
+        }
+    }
+
+    .login-box span{
+        font-size: 43px;
+    }
+
+     .login-box input{
+        height: 4vh;
+     }
+}
