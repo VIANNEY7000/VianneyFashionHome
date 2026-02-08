@@ -4,6 +4,7 @@ import './App.css'
 import Home from './PAGES/Home'
 import Login from './PAGES/Login'
 import Signup from './PAGES/Signup'
+import Menshop from './COMPONENTS/Menshop'
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
     <Route path='/' element={<Home/>}  />
     <Route path='/Login' element={<Login/>}  />
     <Route path='/Signup' element={<Signup/>}  />
+    <Route path='/Menshop' element={<Menshop/>}  />
 
    </Routes>
    </>

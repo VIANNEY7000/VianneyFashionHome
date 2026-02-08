@@ -11,7 +11,7 @@
 
 .signup-box{
     background-color: white;
-    width: 37%;
+    width: 30%;
     height: 90vh;
     padding: 20px ;
     border-radius: 20px;
@@ -27,8 +27,8 @@
     input{
         width: 90%;
         border-radius: 15px;
-        height: 5dvh;
-        font-size: 15px;
+        height: 4dvh;
+        font-size: 14px;
         padding-left: 10px;
         border: 0.5px solid;
     }
@@ -46,7 +46,7 @@
     p{
         display: flex;
         justify-content: left;
-        padding-left: 30px;
+        padding-left: 27px;
         padding-top: 20px;
     }
 }
@@ -82,7 +82,7 @@
      .signup-box{
         font-size: 17px;
         width: 85%;
-        height: 70vh;
+        height: 80vh;
         
         h1{
             font-size: 25px;

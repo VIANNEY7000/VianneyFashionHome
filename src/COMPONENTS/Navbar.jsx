@@ -22,7 +22,7 @@ function App() {
           <li>WOMEN</li>
           
           
-          <Button><Link to='/Login'>LOGIN</Link></Button>
+          <Button><Link to='/Login' style={{color:"white", textDecoration:"none"}}>LOGIN</Link></Button>
        </ul>
       </div>
 
@@ -38,7 +38,7 @@ function App() {
         <ul onClick={() => setOpen(false)}>
           <li>MEN</li>
           <li>WOMEN</li>
-         <Button><Link to='/Login'>LOGIN</Link></Button>  
+         <Button><Link to='/Login' style={{color:"white", textDecoration:"none"}}>LOGIN</Link></Button>  
          </ul>
       </div>
 
