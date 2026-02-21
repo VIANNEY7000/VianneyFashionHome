@@ -1,46 +1,47 @@
-.menshop{
+.menshop {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.shop-box {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: aliceblue;
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.126);
+  text-align: center;
+}
+
+.shop-box button{
+    background: blue;
+    color: white;
+    width: 90%;
+}
+
+.shop-img {
+   width: 100%;
+  height: 250px;      
+  object-fit: cover;   
+  border-radius: 10px;
+    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.052);
 
 }
 
-.menshop-container{
-    width: 300px;
-    margin: 20px;
-    overflow: hidden;
-    text-align: center;
+@media (max-width: 600px) {
+  .menshop {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .shop-box button{
+    font-size: 12px;
+  }
+
+  
+.shop-img {
+   width: 100%;
+  height: 150px;      
 }
-
-.shop-box{
-    border-radius: 10px;
-    padding: 20px;
-     background-color: aliceblue;
-    margin: 20px;
-    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.126);
-
-    h2{
-        font-size: 30px;
-        font-family: Arial, Helvetica, sans-serif;
-        padding: 5px;
-        color: rgba(56, 108, 3, 0.952);
-    }
-
-    p{
-        font-size: 19px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    Button{
-        background-color: blue;
-        color: white;
-        width: 100%;
-    }
-}
-
-.shop-img{
-    border-radius: 10px;
-    width: 100%;
-    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.022);
-}
-
-.shop-img:hover{
-     width: 102%;
 }
