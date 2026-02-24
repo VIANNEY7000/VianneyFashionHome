@@ -5,8 +5,22 @@ import './Menshop.css'
 
 const Menshop = () => {
   const [data, setData] = useState([])
+  
+  const [search, setSearch] = useState("")
+  const [category, setCategory] = useState("all")
 
-    //Fetch all booking
+  const filteredProducts = data.filter((product) => {
+  const matchesSearch = product.name
+    .toLowerCase()
+    .includes(search.toLowerCase())
+
+  const matchesCategory =
+    category === "all" || product.category === category
+
+  return matchesSearch && matchesCategory
+})
+
+    //Fetch all products
     useEffect(() => {
       axios.get("https://backend-api-0y7h.onrender.com/api/products")
       .then((res) => {
@@ -20,9 +34,31 @@ const Menshop = () => {
 
 
   return (
+    <div className="menshop_body">
+      <div className="shop-controls">
+              <input
+                type="text"
+                placeholder="Search product..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="all">All</option>
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="kids">Kids</option>
+              </select>
+            </div>
+
+   
     <div className="menshop">
-      {data?.map((info) => (
+      {filteredProducts?.map((info) => (
         <div key ={info._id}>
+            
           <div className='menshop-container'>
 
             <div className="shop-box">    
@@ -46,6 +82,7 @@ const Menshop = () => {
         </div>
       ))}
     </div>
+     </div>
   )
 }
 
