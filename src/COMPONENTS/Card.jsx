@@ -1,7 +1,7 @@
 import { Button } from "@mui/material"
 import { FiArrowRight } from "react-icons/fi"
 import jeanmodel from '../assets/IMAGES/girlonjeancloth.webp'
-import heroimg2 from '../assets/IMAGEs/fashionimage3.avif'
+import heroimg2 from '../assets/IMAGES/fashionimage3.avif'
 import './Card.css'
 
 
