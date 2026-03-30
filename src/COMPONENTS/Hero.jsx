@@ -13,7 +13,7 @@ const Hero = () => {
     <div className="image-text">
       <h1>Welcome To <br /> <span>Vianney</span> Fashion Home</h1>
       <p>Discover The Beauty of Premium Fashion</p>
-      <Button><Link to='/Menshop' style={{color:"white", textDecoration:"none"}}>SHOP NOW</Link></Button>
+      <Button><Link to='/Shop' style={{color:"white", textDecoration:"none"}}>SHOP NOW</Link></Button>
     </div>
     </div>
   )

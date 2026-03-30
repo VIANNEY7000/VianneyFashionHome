@@ -7,6 +7,10 @@ import Home from './PAGES/Home';
 import Shop from './COMPONENTS/Shop';
 import AdminDashboard from './PAGES/AdminDashboard';
 import CustomerDashboard from './PAGES/CustomerDashboard';
+import ProductDetails from './PAGES/ProductDetail'
+import CartProvider from './CONTEXT/CartContext'
+import Cart from './PAGES/Cart';
+import Checkout from './PAGES/Checkout';
 
 // Role-based private route
 const PrivateRoute = ({ children, role }) => {
@@ -23,6 +27,7 @@ const PrivateRoute = ({ children, role }) => {
 
 function App() {
   return (
+  <CartProvider>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
@@ -30,6 +35,9 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
 
       {/* Protected Dashboards */}
       <Route
@@ -49,6 +57,7 @@ function App() {
         }
       />
     </Routes>
+  </CartProvider>
   );
 }
 

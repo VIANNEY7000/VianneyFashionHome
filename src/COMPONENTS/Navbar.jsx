@@ -18,8 +18,8 @@ function App() {
       {/* MENUES */}
       <div className="menue">
        <ul>
-          <li>MEN</li>
-          <li>WOMEN</li>
+          <li>ABOUT US</li>
+          <li>CONTACT US</li>
           
           
           <Button><Link to='/Login' style={{color:"white", textDecoration:"none"}}>LOGIN</Link></Button>
@@ -36,8 +36,8 @@ function App() {
       {/* HAM MENUE */}
       <div className={`ham-menue ${ open ? "show" : ""}`}>
         <ul onClick={() => setOpen(false)}>
-          <li>MEN</li>
-          <li>WOMEN</li>
+          <li>ABOUT US</li>
+          <li>CONTACT US</li>
          <Button><Link to='/Login' style={{color:"white", textDecoration:"none"}}>LOGIN</Link></Button>  
          </ul>
       </div>
