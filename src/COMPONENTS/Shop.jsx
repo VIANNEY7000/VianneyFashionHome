@@ -3,7 +3,7 @@ import { Button } from '@mui/material'
 import axios from 'axios'
 import './Menshop.css'
 
-const Menshop = () => {
+const Shop = () => {
   const [data, setData] = useState([])
   
   const [search, setSearch] = useState("")
@@ -86,4 +86,4 @@ const Menshop = () => {
   )
 }
 
-export default Menshop
+export default Shop

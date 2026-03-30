@@ -1,102 +1,129 @@
-.home-link{
-    color: black;
+.login-page {
+  background-color: aliceblue;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.login{
-    background-color: aliceblue;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  
+.login-card {
+  background-color: white;
+  width: 45%;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.login-box{
-    background-color: white;
-    width: 45%;
-    height: 60vh;
-    padding: 20px ;
-    border-radius: 20px;
-    span{
-        color: blue;
-        font-size: 45px;
-        font-weight: 100;
-    }
-    h1{
-        font-weight: 100;
-    }
-
-    input{
-        width: 90%;
-        border-radius: 15px;
-        height: 5dvh;
-        font-size: 18px;
-        padding-left: 10px;
-        border: 0.5px solid;
-    }
-
-    Button{
-        background-color: black;
-        color: white;
-        width: 91%;
-        border-radius: 20px;
-        margin-top: 20px;
-        transition: 0.5s ease-in-out;
-    }
-
-    p{
-        padding: 20px 0px;
-    }
+.login-header h1 {
+  font-weight: 100;
+  margin: 10px 0;
 }
 
-.login-box Button:hover{
-    background-color: aliceblue;
-    color: black;
+.login-header span {
+  color: #007bff;
+  font-size: 45px;
+  font-weight: bold;
 }
 
-.lock{
-    color: white;
-    background-color: black;
-    padding: 12px;
-    border-radius: 50%;
-    margin: 20px 0px;
+.login-icon {
+  color: white;
+  background-color: black;
+  padding: 12px;
+  border-radius: 50%;
+  margin-bottom: 20px;
 }
 
-@media (max-width:900px){
-    .login-box{
-        font-size: 17px;
-        width: 70%;
-        h1{
-            font-size: 25px;
-        }
-    }
-
-    .login-box span{
-        font-size: 40px;
-    }
+.login-title {
+  margin-bottom: 20px;
+  color: gray;
+  font-size: 20px;
 }
 
-@media (max-width:600px){
-     .login-box{
-        font-size: 17px;
-        width: 85%;
-        height: 60vh;
-        
-        h1{
-            font-size: 25px;
-        }
-        p{
-            font-size: 16px;
-        }
-    }
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
-    .login-box span{
-        font-size: 43px;
-    }
+.login-input {
+  width: 100%;
+  border-radius: 15px;
+  height: 50px;
+  font-size: 16px;
+  padding: 0 15px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-     .login-box input{
-        height: 4vh;
-     }
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #333;
+}
+
+.login-button {
+ background-color: #333;
+  color: white;
+  width: 90%;
+  border-radius: 20px;
+  align-self: center;
+  border-radius: 20px;
+  padding: 12px;
+  transition: 0.3s ease-in-out;
+}
+
+.login-button:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+
+.login-links {
+  margin-top: 20px;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
+}
+
+.home-link {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .login-card {
+    width: 70%;
+    padding: 25px;
+  }
+
+  .login-header span {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-card {
+    width: 85%;
+    padding: 20px;
+  }
+
+  .login-input {
+    height: 45px;
+  }
+
+  .login-header span {
+    font-size: 35px;
+  }
 }

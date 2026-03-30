@@ -19,16 +19,7 @@ const Card = () => {
         </div>
       </div>
 
-      <div className="hero_image_display2">
-        <img src={heroimg2} alt="" />
-      </div>
-
-      <div className="image-text2">
-          <h1>Style Your Dream</h1>
-      </div>
-
-
-             
+    
     </div>
   )
 }

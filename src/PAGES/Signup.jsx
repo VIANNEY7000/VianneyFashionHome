@@ -1,97 +1,115 @@
 import '../COMPONENTS/Signup.css'
-import { Button, CircularProgress } from '@mui/material'
-import { motion } from 'framer-motion'
-import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-
+import { Button, CircularProgress } from '@mui/material';
+import { motion } from 'framer-motion';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Signup = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-  const [name, setName] = useState ('')
-  const [email, setEmail ] = useState ('')
-  const [phoneNumber, setPhoneNumber ] = useState ('')
-  const [password, setPassword ] = useState ('')
-  const [state, setState ] = useState ('')
-  const [country, setCountry] = useState ('')
-  const [loading, setLoading] = useState (false)
-  const [error, setError] = useState()
-  const payload = {name, email, phoneNumber, password, state, country}
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSignup = async () => {
-    setLoading(true)
-    setError('')
-    try {
-      const data = await
-      axios.post("https://backend-api-0y7h.onrender.com/api/users/register", payload)
-        console.log(data)
-        navigate('/Login')
-      
-    } catch (error) {
-      console.error(error)
-      setError(error)
-    }finally{
-      setLoading(false)
+    if (!name || !email || !password || !role) {
+      setError('Please fill in all fields.');
+      return;
     }
 
-  }
-
+    setLoading(true);
+    setError('');
+    try {
+      const response = await axios.post(
+        'https://vfhome-backend2-3.onrender.com/api/auth/register',
+        { name, email, password, role }
+      );
+      console.log(response.data);
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+      setError(err?.response?.data?.message || 'Signup failed. Try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="signup">
-    <motion.div className='signup-box'
-    initial={{opacity:0, y: 50}}
-     animate={{opacity:1, y:0}}
-      transition={{delay:0.5,type:"spring", stiffness:25 }}
-    >
-      <h1> <span>V</span>FashionHome </h1>
-      <br />
-      <h2>{error ? error : "Signup"}</h2>
+    <div className="signup-page">
+      <motion.div
+        className="signup-card"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, type: 'spring', stiffness: 25 }}
+      >
+        <div className="signup-header">
+          <h1>
+            <span>V</span>FashionHome
+          </h1>
+          <h2 className="signup-title">{error || 'Sign Up'}</h2>
+        </div>
 
-      <form onSubmit={(e) => {e.preventDefault(); handleSignup();}}>
-      <p>Name </p>
-          <input type="text" placeholder='enter name'
+        <form
+          className="signup-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSignup();
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Full Name"
             value={name}
-          onChange={(e) => setName(e.target.value)}/>
-          <br />
+            onChange={(e) => setName(e.target.value)}
+            className="signup-input"
+          />
 
-          <p>Email</p> 
-          <input type="text" placeholder='enter email'
+          <input
+            type="email"
+            placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}/>
-          <br />
+            onChange={(e) => setEmail(e.target.value)}
+            className="signup-input"
+          />
 
-          <p>Phone Number</p> 
-          <input type="number" placeholder='enter phone number'
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}/>
-          <br />
+          <input
+            type="text"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="signup-input"
+          />
 
-          <p>Password</p> 
-          <input type="password" placeholder='enter password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}/>
-          <br />
+          <input
+            type="text"
+            placeholder="Role (Customer or Admin)"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="signup-input"
+          />
 
-          <p>State</p> 
-          <input type="text" placeholder='enter State'
-          value={state}
-          onChange={(e) => setState(e.target.value)}/>
-          <br />
-          <p>country</p> 
-          <input type="text" placeholder='enter Country'
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}/>
-          <br />
+          <Button
+            type="submit"
+            className="signup-button"
+            disabled={loading}
+            style={{background:"blue", color:"white"}}
+          >
+            {loading ? <CircularProgress size={20} color="inherit" /> : 'Sign Up'}
+          </Button>
+        </form>
 
-          <Button type='submit' disabled={loading} >{ loading ? <CircularProgress size={20}/> : "SIGNUP"}</Button>
-          <br />
-      </form>
-      <Link to='/Login'>Back to login</Link>
-    </motion.div>
+        <div className="signup-links">
+          <Link to="/login" className="link">
+            Back to Login
+          </Link>
+        </div>
+      </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
