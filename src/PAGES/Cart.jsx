@@ -55,10 +55,14 @@ const Cart = () => {
             <h2>Total: ${totalPrice.toFixed(2)}</h2>
 
             <div className="cart-buttons">
-              <button onClick={clearCart}>Clear Cart</button>
+              <div>
+                <button onClick={clearCart}>Clear Cart</button>
+              </div>
+               <div>
               <Link to="/checkout">
                 <button>Proceed to Checkout</button>
               </Link>
+              </div>
             </div>
           </div>
         </>

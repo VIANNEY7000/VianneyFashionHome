@@ -1,0 +1,18 @@
+.payment_success{
+    background-color: aliceblue;
+    height: 100vh;
+   
+    button{
+        color: white;
+        background-color: blue;
+        border: none;
+        border-radius: 10px;
+        transition: ease-in 0.5s;
+    }
+}
+
+.payment_success button:hover{
+    background-color: aliceblue;
+    color: blue;
+    border: 0.5px solid blue;
+}

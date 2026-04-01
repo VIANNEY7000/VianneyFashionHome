@@ -28,7 +28,7 @@
 
   
   Button{
-    background-color: black;
+    background-color: blue;
     text-decoration: none;
     padding: 10px 20px;
     font-weight: 600;
@@ -42,9 +42,8 @@
 
 
 .navbar ul Button:hover{
-  color: black;
-  background-color: white;
-  border: 0.5px solid black;
+  color: blue;
+  background-color: gray;
 }
 
 .navbar ul li{

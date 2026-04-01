@@ -11,6 +11,7 @@ import ProductDetails from './PAGES/ProductDetail'
 import CartProvider from './CONTEXT/CartContext'
 import Cart from './PAGES/Cart';
 import Checkout from './PAGES/Checkout';
+import PaymentSuccess from './PAGES/PaymentSuccess';
 
 // Role-based private route
 const PrivateRoute = ({ children, role }) => {
@@ -38,6 +39,7 @@ function App() {
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/payment-success" element={<PaymentSuccess />} />
 
       {/* Protected Dashboards */}
       <Route

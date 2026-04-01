@@ -34,7 +34,7 @@
 }
 
 .image-text Button{
-    background-color: black;
+    background-color: blue;
     color: white;
     padding: 7px 60px;
     border-radius: 14px;margin-top: 20px;
@@ -42,8 +42,8 @@
 }
 
 .image-text Button:hover{
-    background-color: gray;
-    color: black;
+    background-color: black;
+    border: 0.5px solid blue;
 }
 
 @media (max-width:900px) {

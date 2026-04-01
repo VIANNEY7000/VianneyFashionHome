@@ -1,12 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { CartContext } from '../CONTEXT/CartContext'
-import { Link, useNavigate } from 'react-router-dom'
-import { PaystackButton } from 'react-paystack'
+import { Link } from 'react-router-dom'
 import './Checkout.css'
 
 const Checkout = () => {
-  const { cartItems, totalPrice, clearCart } = useContext(CartContext)
-  const navigate = useNavigate()
+  const { cartItems, totalPrice } = useContext(CartContext)
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -18,9 +16,7 @@ const Checkout = () => {
     country: 'Nigeria'
   })
 
-  const publicKey = "YOUR_PAYSTACK_PUBLIC_KEY" 
-
-  const amount = totalPrice * 100 
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     setFormData({
@@ -29,58 +25,53 @@ const Checkout = () => {
     })
   }
 
-  const saveOrderToBackend = async (reference) => {
-    try {
-      const orderData = {
-        ...formData,
-        items: cartItems.map((item) => ({
-          productId: item._id,
-          name: item.name,
-          price: item.price,
-          image: item.image,
-          quantity: item.quantity
-        })),
-        totalPrice,
-        paymentStatus: "Paid",
-        paymentReference: reference.reference
-      }
+  const handlePayment = async (e) => {
+    e.preventDefault()
 
-      const response = await fetch("https://vfhome-backend2-3.onrender.com/api/orders", {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty")
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      const response = await fetch("https://vfhome-backend2-3.onrender.com/api/paystack/initialize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify({
+          email: formData.email,
+          amount: totalPrice * 100,
+          metadata: {
+            ...formData,
+            cartItems
+          }
+        })
+      })
+            console.log("Sending payment:", {
+        email: formData.email,
+        amount: totalPrice * 100,
+        metadata: {
+          ...formData,
+          cartItems
+        }
       })
 
       const data = await response.json()
 
       if (data.success) {
-        alert("Payment successful! Order placed successfully.")
-        clearCart()
-        navigate('/shop')
+        window.location.href = data.authorization_url
       } else {
-        alert(data.message || "Failed to save order")
+        alert(data.message || "Failed to initialize payment")
       }
     } catch (error) {
       console.error(error)
-      alert("Something went wrong while saving order")
+      alert("Something went wrong")
+    } finally {
+      setLoading(false)
     }
-  }
-
-  const componentProps = {
-    email: formData.email,
-    amount: amount,
-    metadata: {
-      name: formData.fullName,
-      phone: formData.phone
-    },
-    publicKey,
-    text: "Pay Now",
-    onSuccess: (reference) => {
-      saveOrderToBackend(reference)
-    },
-    onClose: () => alert("Payment window closed")
   }
 
   return (
@@ -94,79 +85,25 @@ const Checkout = () => {
         </div>
       ) : (
         <div className="checkout-container">
-          {/* LEFT SIDE - FORM */}
-          <form className="checkout-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="checkout-form" onSubmit={handlePayment}>
             <h2>Customer Information</h2>
 
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} required />
+            <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required />
+            <input type="text" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
 
             <h2>Delivery Information</h2>
 
-            <input
-              type="text"
-              name="address"
-              placeholder="Street Address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" name="address" placeholder="Street Address" value={formData.address} onChange={handleChange} required />
+            <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
+            <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
+            <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleChange} required />
 
-            <input
-              type="text"
-              name="city"
-              placeholder="City"
-              value={formData.city}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="text"
-              name="state"
-              placeholder="State"
-              value={formData.state}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="text"
-              name="country"
-              placeholder="Country"
-              value={formData.country}
-              onChange={handleChange}
-              required
-            />
-
-            <PaystackButton className="place-order-btn" {...componentProps} />
+            <button type="submit" className="place-order-btn" disabled={loading}>
+              {loading ? "Redirecting..." : "Pay Now"}
+            </button>
           </form>
 
-          {/* RIGHT SIDE - ORDER SUMMARY */}
           <div className="order-summary">
             <h2>Order Summary</h2>
 

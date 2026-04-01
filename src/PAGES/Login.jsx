@@ -54,7 +54,7 @@ const Login = () => {
     <div className="login-page">
       <motion.div
         className="login-card"
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 50 }}k
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, type: 'spring', stiffness: 25 }}
       >

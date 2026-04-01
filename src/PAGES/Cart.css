@@ -103,10 +103,19 @@
   flex-wrap: wrap;
 }
 
-.cart-buttons button {
+.cart-buttons div:nth-child(2) button {
   padding: 12px 24px;
   border: none;
-  background: blue;
+  background: green;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cart-buttons div:nth-child(1) button {
+  padding: 12px 24px;
+  border: none;
+  background: tomato;
   color: white;
   border-radius: 8px;
   cursor: pointer;
