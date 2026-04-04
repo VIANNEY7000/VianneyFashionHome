@@ -35,9 +35,9 @@ const Login = () => {
        localStorage.setItem('role', user.role);
 
        if (user.role.toLowerCase() === 'customer') {
-      navigate('/customer-dashboard');
+      navigate('/customer/dashboard');
     } else if (user.role.toLowerCase() === 'admin') {
-      navigate('/admin-dashboard');
+      navigate('/admin/dashboard');
     } else {
       navigate('/'); 
     }

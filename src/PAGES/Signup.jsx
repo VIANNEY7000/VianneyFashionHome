@@ -11,12 +11,11 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSignup = async () => {
-    if (!name || !email || !password || !role) {
+    if (!name || !email || !password) {
       setError('Please fill in all fields.');
       return;
     }
@@ -26,7 +25,7 @@ const Signup = () => {
     try {
       const response = await axios.post(
         'https://vfhome-backend2-3.onrender.com/api/auth/register',
-        { name, email, password, role }
+        { name, email, password }
       );
       console.log(response.data);
       navigate('/login');
@@ -81,14 +80,6 @@ const Signup = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="signup-input"
-          />
-
-          <input
-            type="text"
-            placeholder="Role (Customer or Admin)"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
             className="signup-input"
           />
 

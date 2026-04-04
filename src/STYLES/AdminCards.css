@@ -1,0 +1,19 @@
+.admin-cards{
+    color: blue;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding-bottom: 50px;
+    padding-left: 10px;
+}
+
+.admin-card{
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      p{
+        font-size: 20px;
+      }
+
+}
