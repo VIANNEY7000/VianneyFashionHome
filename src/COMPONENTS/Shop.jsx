@@ -28,8 +28,8 @@ const Shop = () => {
   useEffect(() => {
     axios.get("https://vfhome-backend2-3.onrender.com/api/products")
       .then((res) => {
-        setData(res.data.Products)
-        console.log(res.data.Products)
+        setData(res.data.products || [])
+        console.log(res.data.products)  
       })
       .catch((error) => {
         console.error(error?.response?.data?.message || "Request failed")

@@ -10,7 +10,7 @@ const AdminProducts = () => {
   const [formData, setFormData] = useState({
     name: "",
     price: "",
-    discription: "",
+    description: "",
     image: "",
     stock: "",
     category: "",
@@ -71,7 +71,7 @@ const handleImageChange = (e) => {
         "https://vfhome-backend2-3.onrender.com/api/products"
       );
       console.log("Fetched products:", res.data);
-      setProducts(res.data.Products || []);
+     setProducts(res.data.products || []);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -89,7 +89,7 @@ const handleImageChange = (e) => {
     if (
       !formData.name ||
       !formData.price ||
-      !formData.discription ||
+      !formData.description ||
       !formData.image ||
       !formData.stock ||
       !formData.category
@@ -113,7 +113,7 @@ const handleImageChange = (e) => {
       setFormData({
         name: "",
         price: "",
-        discription: "",
+        description: "",
         image: "",
         stock: "",
         category: "",
@@ -177,9 +177,9 @@ const handleImageChange = (e) => {
                 onChange={handleChange}
                 >
                 <option value="">Select Category</option>
-                <option value="Men">men</option>
-                <option value="Women">women</option>
-                <option value="Kids">kids</option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="Kids">Kids</option>
           </select>
 
         <div className="image-upload-box">
@@ -210,9 +210,9 @@ const handleImageChange = (e) => {
           />
 
           <textarea
-            name="discription"
+            name="description"
             placeholder="Product Description"
-            value={formData.discription}
+            value={formData.description}
             onChange={handleChange}
           ></textarea>
         </div>
@@ -245,7 +245,7 @@ const handleImageChange = (e) => {
                     <strong>Stock:</strong> {product.stock}
                   </p>
                   <p>
-                    <strong>Description:</strong> {product.discription}
+                    <strong>Description:</strong> {product.description}
                   </p>
                 </div>
 
