@@ -1,22 +1,60 @@
-import heroimg from '../assets/VIDEOS/HeroVideo2.mp4'
-import {Button} from '@mui/material'
-import './Hero.css'
-import { Link } from 'react-router-dom'
+import heroImg from "../assets/IMAGES/malemodel.jpg";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import "./Hero.css";
 
 const Hero = () => {
   return (
-    <div className='hero'>
-      <div className='video-container'>
-        <video autoPlay muted loop className= 'h-video' > <source src={heroimg} type="video/mp4"/></video>
+    <section className="hero">
+      <div className="hero-overlay"></div>
+
+      <img src={heroImg} alt="Fashion Hero" className="hero-image" />
+
+      <div className="hero-content">
+        <motion.p
+          className="hero-tag"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          New Collection 2026
+        </motion.p>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Redefine Your <br /> Everyday <span>Style</span>
+        </motion.h1>
+
+        <motion.p
+          className="hero-subtext"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          Discover timeless fashion pieces designed to elevate your
+          confidence, comfort, and class.
+        </motion.p>
+
+        <motion.div
+          className="hero-buttons"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+        >
+          <Link to="/shop" className="shop-btn">
+            Shop Now
+          </Link>
+
+          <Link to="/collections" className="explore-btn">
+            Explore Collection
+          </Link>
+        </motion.div>
       </div>
+    </section>
+  );
+};
 
-    <div className="image-text">
-      <h1>Welcome To <br /> <span>Vianney</span> Fashion Home</h1>
-      <p>Discover The Beauty of Premium Fashion</p>
-      <Button><Link to='/Shop' style={{color:"white", textDecoration:"none"}}>SHOP NOW</Link></Button>
-    </div>
-    </div>
-  )
-}
-
-export default Hero
+export default Hero;

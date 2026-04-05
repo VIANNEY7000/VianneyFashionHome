@@ -1,15 +1,15 @@
 import React from 'react'
 import Navbar from '../COMPONENTS/Navbar'
 import Hero from '../COMPONENTS/Hero'
-import Card from '../COMPONENTS/Card'
 import Footer from '../COMPONENTS/Footer'
+import FeaturedCategories from '../COMPONENTS/FeaturedCategories'
 
 const Home = () => {
   return (
     <div>
         <Navbar/>
         <Hero/>
-        <Card/>
+        <FeaturedCategories/>
         <Footer/>
     </div>
   )
