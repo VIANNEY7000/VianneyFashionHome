@@ -1,7 +1,7 @@
 // /PAGES/CustomerLayout.jsx
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import CustomerSidebar from "../COMPONENTS/CustomerSidebar";
+import CustomerSidebar from "../COMPONENTS/Customersidebar";
 import { FiMenu } from "react-icons/fi";
 import "../STYLES/CustomerLayout.css";
 

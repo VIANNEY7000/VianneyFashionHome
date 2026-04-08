@@ -1,4 +1,4 @@
-import heroImg from "../assets/IMAGES/Landingpage4.PNG";
+import heroImg from "../assets/IMAGES/Landingpage4.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./Hero.css";
