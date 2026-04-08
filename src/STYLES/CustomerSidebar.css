@@ -1,0 +1,166 @@
+
+.customer-sidebar {
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(180deg, #0244f9 0%, #021337 100%);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  box-shadow: 6px 0 20px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 35px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.sidebar-header h2 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.close-btn {
+  display: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-links li {
+  width: 100%;
+}
+
+.sidebar-links a,
+.logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #e5edff;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar-links a:hover,
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.396);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.active-link {
+  background: #ffffff;
+  color: white !important;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(255, 255, 255, 0.275);
+}
+
+.active-link svg {
+  color: white;
+}
+
+.logout-btn {
+  margin-top: 14px;
+  color: rgba(255, 0, 0, 0.953);
+}
+
+.logout-btn:hover {
+  background: rgba(255, 99, 71, 0.322);
+  color: red;
+}
+
+/* Overlay */
+.sidebar-overlay {
+  display: none;
+}
+
+/* Tablet + Mobile */
+@media (max-width: 992px) {
+  .customer-sidebar {
+    transform: translateX(-100%);
+    width: 260px;
+  }
+
+  .customer-sidebar.show-sidebar {
+    transform: translateX(0);
+  }
+
+  .close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .sidebar-overlay.show-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Small phones */
+@media (max-width: 576px) {
+  .customer-sidebar {
+    width: 85%;
+    max-width: 300px;
+    padding: 20px 16px;
+  }
+
+  .sidebar-header h2 {
+    font-size: 22px;
+  }
+
+  .sidebar-links a,
+  .logout-btn {
+    padding: 13px 14px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+}

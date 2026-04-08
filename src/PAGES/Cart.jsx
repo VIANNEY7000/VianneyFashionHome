@@ -20,7 +20,7 @@ const Cart = () => {
       {cartItems.length === 0 ? (
         <div className="empty-cart">
           <h2>Your cart is empty</h2>
-          <Link to="/shop">Go Shopping</Link>
+          <Link to="/customer/shop">Go Shopping</Link>
         </div>
       ) : (
         <>

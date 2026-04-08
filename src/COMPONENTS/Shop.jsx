@@ -87,8 +87,12 @@ const Shop = () => {
                   <div>
                     <h2>{info.name}</h2>
                   </div>
-                  <p>{info.discription}</p>
-                  <h2>${info.price}</h2>
+                    <p className="product-desc">
+                      {info.discription?.length > 60
+                        ? `${info.discription.slice(0, 60)}...`
+                        : info.discription}
+                    </p>
+                  <h2 style={{color:'green'}}>₦{info.price}</h2>
                 </Link>
 
                 <Button onClick={() => addToCart(info)}>Add to Cart</Button>

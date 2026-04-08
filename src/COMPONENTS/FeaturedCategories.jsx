@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import menImg from "../assets/IMAGES/malemodel2.jpg";
-import womenImg from "../assets/IMAGES/fashionimage2.jpg";
-import accessoriesImg from "../assets/IMAGES/girlonjeancloth.webp";
-import newArrivalsImg from "../assets/IMAGES/fashionimage3.avif";
+import menImg from "../assets/IMAGES/men.jpg";
+import womenImg from "../assets/IMAGES/women.jpg";
+import accessoriesImg from "../assets/IMAGES/accessories.avif";
+import newArrivalsImg from "../assets/IMAGES/new.avif";
 import "./FeaturedCategories.css";
 
 const categories = [

@@ -1,122 +1,217 @@
+
+.menshop_body {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  background: #f4f7fb;
+  box-sizing: border-box;
+}
+
 .shop-controls {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-  gap: 20px;
-
- 
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
 }
 
-
-
-.shop-controls input{
- padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-width: 500px;
-}
-
+.shop-controls input,
 .shop-controls select {
-    background-color: blue;
-    color: white;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 15%;
-  max-width: 500px;
+  padding: 12px 15px;
+  border: 1px solid #dbe3f0;
+  border-radius: 12px;
+  outline: none;
+  font-size: 15px;
+  background: #f9fbff;
+  transition: all 0.3s ease;
+}
+
+.shop-controls input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.shop-controls input:focus,
+.shop-controls select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  color: #1e3a8a;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-icon {
+  font-size: 32px;
+  transition: transform 0.2s ease;
+}
+
+.cart-icon-wrapper:hover .cart-icon {
+  transform: scale(1.08);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 50%;
+  min-width: 22px;
+  height: 22px;
+  padding: 2px 6px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 }
 
 .menshop {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 24px;
+}
+
+.menshop-container {
+  width: 100%;
 }
 
 .shop-box {
-  border-radius: 10px;
-  padding: 20px;
-  background-color: aliceblue;
-  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.126);
-  text-align: center;
-  color: black;
-  h2{
-    list-style: none;
-  }
-}
-
-.shop-box button{
-    background: blue;
-    color: white;
-    width: 90%;
-}
-
-.shop-box button:hover{
-    background: aliceblue;
-    color: blue;
-    border: 0.5px solid blue;
-}
-
-.shop-img {
-   width: 100%;
-  height: 250px;      
-  object-fit: cover;   
-  border-radius: 10px;
-    box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.052);
-
-}
-
-@media (max-width: 600px) {
-    .shop-controls {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  padding: 16px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-  gap: 20px;
-
- 
+  flex-direction: column;
+  height: 100%;
 }
 
-
-
-.shop-controls input{
-  padding: 7px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 60%;
-  max-width: 500px;
+.shop-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.12);
 }
 
-.shop-controls select {
-  padding: 7px;
-  font-size: 11px;
-  border-radius: 6px;
-  width: 20%;
-  max-width: 500px;
+.shop-image-wrapper {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #eef4ff;
+  margin-bottom: 16px;
 }
 
-  .menshop {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .shop-box button{
-    font-size: 12px;
-  }
-
-  
 .shop-img {
-   width: 100%;
-  height: 150px;      
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
 }
+
+.shop-box:hover .shop-img {
+  transform: scale(1.05);
+}
+
+.shop-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.product-title {
+  font-size: 20px;
+  color: #0f172a;
+  margin: 0;
+  font-weight: 700;
+}
+
+.product-desc {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.7;
+  min-height: 48px;
+  margin: 0;
+}
+
+.product-price {
+  font-size: 22px;
+  color: #2563eb;
+  margin: 0;
+  font-weight: 700;
+}
+
+.add-cart-btn {
+  margin-top: 18px !important;
+  background-color: #1d4ed8;
+  color: #ffffff ;
+  padding: 12px 18px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.add-cart-btn:hover {
+  background: aliceblue !important;
+  transform: translateY(-2px);
+  border: 0.5px solid blue;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .menshop_body {
+    padding: 15px;
+  }
+
+  .shop-controls {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .shop-controls input,
+  .shop-controls select {
+    width: 100%;
+  }
+
+  .shop-image-wrapper {
+    height: 220px;
+  }
+
+  .product-title {
+    font-size: 18px;
+  }
+
+  .product-price {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menshop {
+    grid-template-columns: 1fr;
+  }
+
+  .shop-box {
+    padding: 14px;
+  }
+
+  .shop-image-wrapper {
+    height: 200px;
+  }
+
+  .product-desc {
+    font-size: 13px;
+  }
 }

@@ -1,4 +1,4 @@
-import heroImg from "../assets/IMAGES/malemodel.jpg";
+import heroImg from "../assets/IMAGES/Landingpage4.PNG";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./Hero.css";
@@ -44,7 +44,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2 }}
         >
-          <Link to="/shop" className="shop-btn">
+          <Link to="/customer/shop" className="shop-btn">
             Shop Now
           </Link>
 

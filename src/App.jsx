@@ -13,10 +13,17 @@ import Cart from "./PAGES/Cart";
 import Checkout from "./PAGES/Checkout";
 import PaymentSuccess from "./PAGES/PaymentSuccess";
 import Categories from "./PAGES/Categories";
-import Orders from "./PAGES/Orders";
 import Customers from "./PAGES/Customers";
 import AdminProducts from "./PAGES/AdminProducts";
 import AdminLayout from "./PAGES/AdminLayout";
+import AdminOrders from "./PAGES/AdminOrders";
+
+// Customer pages
+import CustomerLayout from "./PAGES/CustomerLayout";
+import CustomerOrders from "./PAGES/CustomerOrders";
+import CustomerWishlist from "./PAGES/CustomerWishlist";
+import CustomerProfile from "./PAGES/CustomerProfile";
+import Collection from "./PAGES/Collection";
 
 // Role-based private route
 const PrivateRoute = ({ children, role }) => {
@@ -41,11 +48,12 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/shop" element={<Shop />} />
+        <Route path="/customer/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/collections" element={<Collection />} />
 
         {/* Protected Admin Layout */}
         <Route
@@ -59,19 +67,24 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="categories" element={<Categories />} />
-          <Route path="orders" element={<Orders />} />
+          <Route path="orders" element={<AdminOrders />} />
           <Route path="customers" element={<Customers />} />
         </Route>
 
-        {/* Protected Customer Dashboard */}
+        {/* Protected Customer Layout */}
         <Route
-          path="/customer-dashboard"
+          path="/customer"
           element={
             <PrivateRoute role="Customer">
-              <CustomerDashboard />
+              <CustomerLayout />
             </PrivateRoute>
           }
-        />
+        >
+          <Route path="dashboard" element={<CustomerDashboard />} />
+          <Route path="orders" element={<CustomerOrders />} />
+          <Route path="wishlist" element={<CustomerWishlist />} />
+          <Route path="profile" element={<CustomerProfile />} />
+        </Route>
       </Routes>
     </CartProvider>
   );

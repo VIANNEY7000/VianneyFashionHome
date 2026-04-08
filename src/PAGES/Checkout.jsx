@@ -36,30 +36,48 @@ const Checkout = () => {
     setLoading(true)
 
     try {
+      const cleanCartItems = cartItems.map((item) => ({
+        productId: item._id || item.productId,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+        quantity: item.quantity
+      }))
+
+      const payload = {
+        email: formData.email,
+        amount: Math.round(totalPrice * 100),
+        metadata: {
+          fullName: formData.fullName,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          country: formData.country,
+          totalPrice,
+          items: cleanCartItems
+        }
+      }
+
+      console.log("Sending payment:", payload)
+
       const response = await fetch("https://vfhome-backend2-3.onrender.com/api/paystack/initialize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          email: formData.email,
-          amount: totalPrice * 100,
-          metadata: {
-            ...formData,
-            cartItems
-          }
-        })
-      })
-            console.log("Sending payment:", {
-        email: formData.email,
-        amount: totalPrice * 100,
-        metadata: {
-          ...formData,
-          cartItems
-        }
+        body: JSON.stringify(payload)
       })
 
-      const data = await response.json()
+      const text = await response.text()
+
+      let data
+      try {
+        data = JSON.parse(text)
+      } catch (error) {
+        console.error("Server returned non-JSON response:", text)
+        throw new Error("Server did not return valid JSON")
+      }
 
       if (data.success) {
         window.location.href = data.authorization_url
@@ -67,8 +85,8 @@ const Checkout = () => {
         alert(data.message || "Failed to initialize payment")
       }
     } catch (error) {
-      console.error(error)
-      alert("Something went wrong")
+      console.error("Payment error:", error)
+      alert("Something went wrong while initializing payment")
     } finally {
       setLoading(false)
     }
@@ -113,13 +131,13 @@ const Checkout = () => {
                 <div>
                   <h3>{item.name}</h3>
                   <p>Qty: {item.quantity}</p>
-                  <p>${item.price} each</p>
+                  <p>₦{item.price}</p>
                 </div>
               </div>
             ))}
 
             <div className="summary-total">
-              <h2>Total: ${totalPrice.toFixed(2)}</h2>
+              <h2>Total: ₦{totalPrice.toFixed(2)}</h2>
             </div>
           </div>
         </div>

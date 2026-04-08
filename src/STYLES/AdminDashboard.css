@@ -5,10 +5,6 @@
 }
 
 .admin-main {
-  h1{
-    font-family:Arial, Helvetica, sans-serif ;
-    font-size: 1.7rem;
-  }
   flex: 1;
   padding: 0;
   overflow-x: hidden;
@@ -28,8 +24,8 @@
 
 .admin-mobile-header h2 {
   margin: 0;
+  font-size: 1.1rem;
   color: #111827;
-  float: right;
   font-weight: 700;
 }
 
