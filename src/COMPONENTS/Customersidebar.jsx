@@ -41,7 +41,7 @@ const CustomerSidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </li>
            <li>
             <NavLink
-              to="/shop"
+              to="/customer/shop"
               onClick={() => setSidebarOpen(false)}
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >

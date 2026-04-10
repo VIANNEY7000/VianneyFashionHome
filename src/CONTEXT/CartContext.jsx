@@ -1,65 +1,128 @@
-import React, { createContext, useEffect, useState } from 'react'
+import { createContext, useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export const CartContext = createContext()
+export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(() => {
-    const savedCart = localStorage.getItem("cartItems")
-    return savedCart ? JSON.parse(savedCart) : []
-  })
+  const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems))
-  }, [cartItems])
+  const navigate = useNavigate();
 
-  const addToCart = (product) => {
-    const existingProduct = cartItems.find((item) => item._id === product._id)
+  // ✅ Always get fresh token
+  const getToken = () => localStorage.getItem("token");
 
-    if (existingProduct) {
-      const updatedCart = cartItems.map((item) =>
-        item._id === product._id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
-      setCartItems(updatedCart)
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }])
+  // ✅ Auth check
+  const checkAuth = () => {
+    const token = getToken();
+
+    if (!token) {
+      alert("You must be logged in");
+      navigate("/login");
+      return null;
     }
-  }
 
-  const removeFromCart = (id) => {
-    const updatedCart = cartItems.filter((item) => item._id !== id)
-    setCartItems(updatedCart)
-  }
+    return token;
+  };
 
-  const increaseQty = (id) => {
-    const updatedCart = cartItems.map((item) =>
-      item._id === id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    )
-    setCartItems(updatedCart)
-  }
+  // ✅ Fetch cart
+  const fetchCart = async () => {
+    const token = getToken();
+    if (!token) return;
 
-  const decreaseQty = (id) => {
-    const updatedCart = cartItems.map((item) =>
-      item._id === id && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
-    )
-    setCartItems(updatedCart)
-  }
+    try {
+      const res = await axios.get(
+        "https://vfhome-backend2-3.onrender.com/api/auth/cart",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
 
-  const clearCart = () => {
-    setCartItems([])
-  }
+      setCartItems(res.data.cart || []);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
+  // ✅ Add to cart
+  const addToCart = async (productId) => {
+    const token = checkAuth();
+    if (!token) return;
 
+    try {
+      await axios.post(
+        "https://vfhome-backend2-3.onrender.com/api/auth/cart",
+        { productId, quantity: 1 },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      fetchCart();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // ✅ Remove from cart
+  const removeFromCart = async (productId) => {
+    const token = checkAuth();
+    if (!token) return;
+
+    try {
+      await axios.delete(
+        "https://vfhome-backend2-3.onrender.com/api/auth/cart/remove",
+        {
+          data: { productId },
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      fetchCart();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // ✅ Clear cart
+  const clearCart = async () => {
+    const token = checkAuth();
+    if (!token) return;
+
+    try {
+      await axios.delete(
+        "https://vfhome-backend2-3.onrender.com/api/auth/cart/clear",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      setCartItems([]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // ✅ Total price
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) =>
+      total + item.productId.price * item.quantity,
     0
-  )
+  );
+
+  // ✅ Load cart on app start
+  useEffect(() => {
+    const token = getToken();
+    if (token) fetchCart();
+  }, []);
 
   return (
     <CartContext.Provider
@@ -67,16 +130,14 @@ const CartProvider = ({ children }) => {
         cartItems,
         addToCart,
         removeFromCart,
-        increaseQty,
-        decreaseQty,
         clearCart,
-        cartCount,
+        cartCount: cartItems.length,
         totalPrice
       }}
     >
       {children}
     </CartContext.Provider>
-  )
-}
+  );
+};
 
-export default CartProvider
+export default CartProvider;

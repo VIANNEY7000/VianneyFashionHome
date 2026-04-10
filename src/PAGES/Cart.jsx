@@ -7,8 +7,6 @@ const Cart = () => {
   const {
     cartItems,
     removeFromCart,
-    increaseQty,
-    decreaseQty,
     totalPrice,
     clearCart
   } = useContext(CartContext)
@@ -24,32 +22,28 @@ const Cart = () => {
         </div>
       ) : (
         <>
-          <div className="cart-items">
-            {cartItems.map((item) => (
-              <div className="cart-item" key={item._id}>
-                <img src={item.image} alt={item.name} />
+         {cartItems.map((item) => (
+          <div className="cart-item" key={item.productId._id}>
+            <img src={item.productId.image} alt="" />
 
-                <div className="cart-info">
-                  <h2>{item.name}</h2>
-                  <p>{item.discription}</p>
-                  <h3>${item.price}</h3>
+            <div className="cart-info">
+              <h2>{item.productId.name}</h2>
+              <p>{item.productId.discription}</p>
+              <h3>₦{item.productId.price}</h3>
 
-                  <div className="qty-controls">
-                    <button onClick={() => decreaseQty(item._id)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => increaseQty(item._id)}>+</button>
-                  </div>
+              <p>Qty: {item.quantity}</p>
 
-                  <button
-                    className="remove-btn"
-                    onClick={() => removeFromCart(item._id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))}
+              <button
+                className="remove-btn"
+                onClick={() => removeFromCart(item.productId._id)}
+              >
+                Remove
+              </button>
+            </div>
           </div>
+
+            ))}
+
 
           <div className="cart-summary">
             <h2>Total: ${totalPrice.toFixed(2)}</h2>
