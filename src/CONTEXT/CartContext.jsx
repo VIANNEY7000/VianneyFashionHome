@@ -69,26 +69,31 @@ const CartProvider = ({ children }) => {
   };
 
   // ✅ Remove from cart
-  const removeFromCart = async (productId) => {
-    const token = checkAuth();
-    if (!token) return;
+  const removeFromCart = async (id) => {
+  const token = checkAuth();
+  if (!token) return;
 
-    try {
-      await axios.delete(
-        "https://vfhome-backend2-3.onrender.com/api/auth/cart/remove",
-        {
-          data: { productId },
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+  console.log("Removing:", id); // DEBUG
+  if (!id) {
+    console.error("No productId received");
+    return;
+  }
+  try {
+    const res = await axios.delete(
+      `https://vfhome-backend2-3.onrender.com/api/auth/cart/remove/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      );
+      }
+    );
+    console.log("Response:", res.data);
 
-      fetchCart();
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    fetchCart();
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+  }
+};
 
   // ✅ Clear cart
   const clearCart = async () => {

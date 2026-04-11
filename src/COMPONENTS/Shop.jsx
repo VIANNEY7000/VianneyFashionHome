@@ -10,8 +10,14 @@ const Shop = () => {
   const [data, setData] = useState([])
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("all")
+  const [loading, setLoading] = useState(true);
 
-  const { addToCart, cartCount } = useContext(CartContext)
+  const { addToCart, cartCount, cartItems } = useContext(CartContext)
+
+  // ✅ Check if item is already in cart
+  const isInCart = (id) => {
+    return cartItems.some(item => item.productId._id === id);
+  };
 
   const filteredProducts = data.filter((product) => {
     const matchesSearch = product.name
@@ -24,18 +30,32 @@ const Shop = () => {
     return matchesSearch && matchesCategory
   })
 
-  // Fetch all products
+  // Fetch products
   useEffect(() => {
+    setLoading(true);
+
     axios.get("https://vfhome-backend2-3.onrender.com/api/products")
       .then((res) => {
         setData(res.data.products || [])
-        console.log(res.data.products)  
       })
       .catch((error) => {
         console.error(error?.response?.data?.message || "Request failed")
       })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [])
 
+  // ✅ LOADING SCREEN
+  if (loading) {
+    return (
+      <div className="shop-loading">
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
+  // ✅ MAIN UI (THIS WAS MISSING RETURN)
   return (
     <div className="menshop_body">
       <div className="shop-controls">
@@ -81,21 +101,28 @@ const Shop = () => {
             <div className='menshop-container'>
               <div className="shop-box">
                 <Link to={`/product/${info._id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div>
-                    <img src={info.image} alt={info.name} className="shop-img" />
-                  </div>
-                  <div>
-                    <h2>{info.name}</h2>
-                  </div>
-                    <p className="product-desc">
-                      {info.discription?.length > 60
-                        ? `${info.discription.slice(0, 60)}...`
-                        : info.discription}
-                    </p>
-                  <h2 style={{color:'green'}}>₦{info.price}</h2>
+                  <img src={info.image} alt={info.name} className="shop-img" />
+
+                  <h2>{info.name}</h2>
+
+                  <p className="product-desc">
+                    {info.discription?.length > 60
+                      ? `${info.discription.slice(0, 60)}...`
+                      : info.discription}
+                  </p>
+
+                  <h2 style={{ color: 'green' }}>₦{info.price}</h2>
                 </Link>
 
-                <Button onClick={() => addToCart(info)}>Add to Cart</Button>
+                <Button
+                  onClick={() => addToCart(info._id)}
+                  disabled={isInCart(info._id)}
+                >
+                  {isInCart(info._id)
+                    ? "Added to Cart ✅"
+                    : "ADD TO CART"}
+                </Button>
+
               </div>
             </div>
           </div>

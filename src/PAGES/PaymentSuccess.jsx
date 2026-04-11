@@ -38,7 +38,7 @@ const PaymentSuccess = () => {
     <div style={{ padding: "60px", textAlign: "center" }} className='payment_success'>
       <h1>{message}</h1>
       <p>Reference: {reference}</p>
-      <Link to="/shop">
+      <Link to="/customer/shop">
         <button style={{ padding: "12px 24px", marginTop: "20px" }}>
           Continue Shopping
         </button>
