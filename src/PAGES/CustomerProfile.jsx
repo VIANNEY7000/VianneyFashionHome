@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import '../STYLES/CustomerProfile.css'
 
 const CustomerProfile = () => {
   const [user, setUser] = useState(null);
-  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const fetchProfile = async () => {
+    const token = localStorage.getItem("token");
+
+    // ✅ NO TOKEN → redirect immediately
+    if (!token) {
+      setError("You are not logged in");
+      setLoading(false);
+      navigate("/login");
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -21,10 +33,22 @@ const CustomerProfile = () => {
         }
       );
 
-      setUser(res.data.user);
-      setOrders(res.data.orders || []);
+      console.log("PROFILE RESPONSE:", res.data);
+
+      setUser(res.data.user || res.data);
+      setError("");
     } catch (error) {
-      console.error(error?.response?.data || error.message);
+      console.error("PROFILE ERROR:", error?.response?.data || error.message);
+
+      if (error.response?.status === 401) {
+        setError("Session expired. Please login again.");
+        localStorage.removeItem("token");
+        navigate("/login");
+      } else if (error.response?.status === 404) {
+        setError("User not found");
+      } else {
+        setError("Failed to load profile");
+      }
     } finally {
       setLoading(false);
     }
@@ -34,12 +58,14 @@ const CustomerProfile = () => {
     fetchProfile();
   }, []);
 
+  // ✅ LOADING
   if (loading) {
     return <h2>Loading profile...</h2>;
   }
 
-  if (!user) {
-    return <h2>No user found</h2>;
+  // ✅ ERROR HANDLING (IMPORTANT)
+  if (error) {
+    return <h2>{error}</h2>;
   }
 
   return (
@@ -48,46 +74,19 @@ const CustomerProfile = () => {
       {/* USER INFO */}
       <div className="profile-card">
         <h2>My Profile</h2>
-        <p><b>Name:</b> {user.name}</p>
-        <p><b>Email:</b> {user.email}</p>
-        <p><b>Role:</b> {user.role}</p>
+        <p><b>Name:</b> {user?.name}</p>
+        <p><b>Email:</b> {user?.email}</p>
+        <p><b>Role:</b> {user?.role}</p>
       </div>
 
       {/* ADDRESS */}
       <div className="profile-card">
         <h2>Address</h2>
-        <p>{user.address?.street || "No address set"}</p>
+        <p>{user?.address?.street || "No address set"}</p>
         <p>
-          {user.address?.city} {user.address?.state}
+          {user?.address?.city || ""} {user?.address?.state || ""}
         </p>
-        <p>{user.address?.country}</p>
-      </div>
-
-      {/* ORDERS */}
-      <div className="profile-card">
-        <h2>My Orders</h2>
-
-        {orders.length === 0 ? (
-          <p>No orders yet</p>
-        ) : (
-          orders.map((order) => (
-            <div key={order._id} className="order-box">
-              <p><b>ID:</b> {order._id.slice(-6)}</p>
-              <p><b>Status:</b> {order.orderStatus}</p>
-              <p><b>Total:</b> ₦{order.totalPrice}</p>
-
-              <div className="order-items">
-                {order.items?.map((item, i) => (
-                  <div key={i} className="mini-item">
-                    <img src={item.image} alt={item.name} />
-                    <p>{item.name}</p>
-                    <p>Qty: {item.quantity}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))
-        )}
+        <p>{user?.address?.country || ""}</p>
       </div>
 
     </div>

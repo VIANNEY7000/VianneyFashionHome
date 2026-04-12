@@ -12,9 +12,8 @@ const AdminOrders = () => {
 
   const token = localStorage.getItem("token");
 
-  // =========================
+
   // FETCH ORDERS
-  // =========================
   const fetchOrders = async () => {
     try {
       setLoading(true);
@@ -40,9 +39,8 @@ const AdminOrders = () => {
     fetchOrders();
   }, []);
 
-  // =========================
+
   // FILTER ORDERS
-  // =========================
   useEffect(() => {
     if (statusFilter === "All") {
       setFilteredOrders(orders);
@@ -53,9 +51,8 @@ const AdminOrders = () => {
     }
   }, [statusFilter, orders]);
 
-  // =========================
   // UPDATE ORDER STATUS
-  // =========================
+
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       await axios.put(
@@ -81,9 +78,7 @@ const AdminOrders = () => {
     }
   };
 
-  // =========================
-  // LOADING UI
-  // =========================
+  
   if (loading) {
     return (
       <div className="admin-orders">

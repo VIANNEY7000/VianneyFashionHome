@@ -1,0 +1,127 @@
+/* ===== PAGE WRAPPER ===== */
+.profile-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  display: grid;
+  gap: 25px;
+}
+
+/* ===== CARD STYLE ===== */
+.profile-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== HEADINGS ===== */
+.profile-card h2 {
+  color: #0d6efd;
+  margin-bottom: 15px;
+  font-size: 20px;
+  border-bottom: 2px solid #e6f0ff;
+  padding-bottom: 8px;
+}
+
+/* ===== TEXT ===== */
+.profile-card p {
+  margin: 6px 0;
+  color: #333;
+  font-size: 15px;
+}
+
+/* ===== ORDER BOX ===== */
+.order-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f7fbff;
+  border: 1px solid #e0ecff;
+}
+
+/* ===== ORDER HEADER ===== */
+.order-box p {
+  margin: 4px 0;
+}
+
+/* ===== STATUS BADGES ===== */
+.order-status {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.order-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.order-status.shipped {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.order-status.delivered {
+  background: #d4edda;
+  color: #155724;
+}
+
+.order-status.cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* ===== ITEMS GRID ===== */
+.order-items {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+/* ===== SINGLE ITEM ===== */
+.mini-item {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #e0ecff;
+  transition: 0.2s ease;
+}
+
+.mini-item:hover {
+  transform: scale(1.03);
+}
+
+/* ===== ITEM IMAGE ===== */
+.mini-item img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+/* ===== LOADING TEXT ===== */
+.profile-container h2 {
+  text-align: center;
+  color: #0d6efd;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 15px;
+  }
+
+  .profile-card {
+    padding: 20px;
+  }
+}

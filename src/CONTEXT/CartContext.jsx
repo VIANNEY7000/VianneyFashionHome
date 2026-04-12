@@ -35,7 +35,7 @@ const CartProvider = ({ children }) => {
         "https://vfhome-backend2-3.onrender.com/api/auth/cart",
         {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           }
         }
       );
