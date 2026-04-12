@@ -25,6 +25,8 @@ const CartProvider = ({ children }) => {
     return token;
   };
 
+
+
   // ✅ Fetch cart
   const fetchCart = async () => {
     const token = getToken();
@@ -46,54 +48,80 @@ const CartProvider = ({ children }) => {
     }
   };
 
+  
+
   // ✅ Add to cart
   const addToCart = async (productId) => {
-    const token = checkAuth();
-    if (!token) return;
+  const token = getToken();
 
-    try {
-      await axios.post(
-        "https://vfhome-backend2-3.onrender.com/api/auth/cart",
-        { productId, quantity: 1 },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      fetchCart();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  // ✅ Remove from cart
-  const removeFromCart = async (id) => {
-  const token = checkAuth();
-  if (!token) return;
-
-  console.log("Removing:", id); // DEBUG
-  if (!id) {
-    console.error("No productId received");
-    return;
+  if (!token) {
+    alert("You must be logged in");
+    window.location.href = "/login"; // force redirect
+    return; // 🚨 STOP EXECUTION
   }
   try {
-    const res = await axios.delete(
-      `https://vfhome-backend2-3.onrender.com/api/auth/cart/remove/${id}`,
+    await axios.post(
+      "https://vfhome-backend2-3.onrender.com/api/auth/cart",
+      { productId, quantity: 1 },
       {
         headers: {
           Authorization: `Bearer ${token}`
         }
       }
     );
-    console.log("Response:", res.data);
+    fetchCart();
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+  }
+};
+
+
+// UPDATE QUANTITY
+const updateQuantity = async (productId, quantity) => {
+  const token = getToken();
+  if (!token) return;
+
+  try {
+    await axios.put(
+      "https://vfhome-backend2-3.onrender.com/api/auth/cart/update",
+      { productId, quantity },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
 
     fetchCart();
   } catch (err) {
     console.error(err.response?.data || err.message);
   }
 };
+
+
+
+  // ✅ Remove from cart
+ const removeFromCart = async (productId) => {
+  const token = getToken();
+  if (!token) return;
+
+  try {
+    await axios.delete(
+      `https://vfhome-backend2-3.onrender.com/api/auth/cart/remove/${productId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    fetchCart();
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+  }
+};
+
+
 
   // ✅ Clear cart
   const clearCart = async () => {
@@ -136,6 +164,7 @@ const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         clearCart,
+        updateQuantity,
         cartCount: cartItems.length,
         totalPrice
       }}

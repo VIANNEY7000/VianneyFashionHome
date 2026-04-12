@@ -16,8 +16,11 @@ const Shop = () => {
 
   // ✅ Check if item is already in cart
   const isInCart = (id) => {
-    return cartItems.some(item => item.productId._id === id);
-  };
+  return cartItems.some((item) => {
+    const pid = item.productId?._id || item.productId;
+    return pid === id;
+  });
+};
 
   const filteredProducts = data.filter((product) => {
     const matchesSearch = product.name
