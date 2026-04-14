@@ -1,25 +1,74 @@
-.footer{
-    background-color: black;
-    color: white;
-    height: 10vh;
+.footer {
+  background: #0f172a;
+  color: #cbd5f5;
+  padding: 80px 7% 40px;
+}
+
+.footername{
     text-align: center;
-    padding-top: 10px;
+    padding-bottom: 50px;
 }
 
-.footer-container a{
-margin: 20px;
-color: white;
-text-decoration: none;
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+
+  a{
+    text-decoration: none;
+    list-style: none;
+    color: #cbd5f5;
+  }
 }
 
-.footer-container a:hover{
-    color: blue;
+
+.footer h3 {
+  color: white;
 }
 
-@media (max-width:600px){
-    .footer{
-        font-size: 12px;
-        height: 5vh;
-        padding: 10px 0px;
-    }
+.footer h4 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.copy {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .footer {
+    padding: 60px 6% 30px;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .footer {
+    padding: 50px 5% 25px;
+    text-align: center;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+
+  .footer h3,
+  .footer h4 {
+    margin-bottom: 8px;
+  }
+
+  .copy {
+    font-size: 13px;
+    margin-top: 30px;
+  }
 }

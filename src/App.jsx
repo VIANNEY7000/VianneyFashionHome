@@ -24,6 +24,8 @@ import CustomerOrders from "./PAGES/CustomerOrders";
 import CustomerWishlist from "./PAGES/CustomerWishlist";
 import CustomerProfile from "./PAGES/CustomerProfile";
 import Collection from "./PAGES/Collection";
+import AboutUs from "./PAGES/AboutUs";
+import ContactUs from "./PAGES/ContactUs";
 
 // Role-based private route
 const PrivateRoute = ({ children, role }) => {
@@ -54,6 +56,8 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/collections" element={<Collection />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/contact" element={<ContactUs />} />
 
         {/* Protected Admin Layout */}
         <Route
