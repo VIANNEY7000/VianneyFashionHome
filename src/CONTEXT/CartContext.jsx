@@ -44,7 +44,10 @@ const CartProvider = ({ children }) => {
 
       setCartItems(res.data.cart || []);
     } catch (err) {
-      console.error(err);
+        if (err.response?.status === 401) {
+        localStorage.removeItem("token"); // clear bad token
+        setCartItems([]);
+      }
     }
   };
 
@@ -71,6 +74,13 @@ const CartProvider = ({ children }) => {
     );
     fetchCart();
   } catch (err) {
+    console.error(err.response?.data || err.message);
+    if (err.response?.status === 401) {
+      localStorage.removeItem("token"); // clear the bad token
+      alert("Session expired. Please log in again.");
+      window.location.href = "/login";
+      return;
+    }
     console.error(err.response?.data || err.message);
   }
 };
