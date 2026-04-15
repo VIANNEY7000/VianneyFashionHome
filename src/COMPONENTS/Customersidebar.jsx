@@ -10,6 +10,9 @@ const CustomerSidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
     navigate("/login");
   };
 

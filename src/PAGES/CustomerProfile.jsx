@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import '../STYLES/CustomerProfile.css'
 
+const API = import.meta.env.VITE_PRODUCT_API || "https://vfhome-backend2-3.onrender.com";
+
 const CustomerProfile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,6 +14,9 @@ const CustomerProfile = () => {
 
   const fetchProfile = async () => {
     const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const savedName = localStorage.getItem("userName");
+    const savedEmail = localStorage.getItem("userEmail");
 
     // ✅ NO TOKEN → redirect immediately
     if (!token) {
@@ -25,7 +30,7 @@ const CustomerProfile = () => {
       setLoading(true);
 
       const res = await axios.get(
-        "https://vfhome-backend2-3.onrender.com/api/auth/me",
+        `${API}/api/auth/protected`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,10 +40,43 @@ const CustomerProfile = () => {
 
       console.log("PROFILE RESPONSE:", res.data);
 
-      setUser(res.data.user || res.data);
+      const profileData = res.data?.user || res.data?.data || res.data;
+
+      if (profileData?.name || profileData?.email) {
+        setUser(profileData);
+        setError("");
+        return;
+      }
+
+      const usersRes = await axios.get(`${API}/api/auth`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const users = usersRes.data?.users || [];
+      const currentUser = users.find((item) => item._id === userId);
+
+      if (!currentUser) {
+        setError("Profile data not found");
+        return;
+      }
+
+      setUser(currentUser);
       setError("");
     } catch (error) {
       console.error("PROFILE ERROR:", error?.response?.data || error.message);
+
+      if (savedName || savedEmail) {
+        setUser({
+          _id: userId,
+          name: savedName || "Customer",
+          email: savedEmail || "No email available",
+          role: localStorage.getItem("role") || "customer",
+        });
+        setError("");
+        return;
+      }
 
       if (error.response?.status === 401) {
         setError("Session expired. Please login again.");
