@@ -48,6 +48,7 @@ const Checkout = () => {
         email: formData.email,
         amount: Math.round(totalPrice * 100),
         metadata: {
+          userId: localStorage.getItem("userId"),
           fullName: formData.fullName,
           phone: formData.phone,
           address: formData.address,
@@ -125,16 +126,19 @@ const Checkout = () => {
           <div className="order-summary">
             <h2>Order Summary</h2>
 
-            {cartItems.map((item) => (
-              <div className="summary-item" key={item._id}>
-                <img src={item.image} alt={item.name} />
-                <div>
-                  <h3>{item.name}</h3>
-                  <p>Qty: {item.quantity}</p>
-                  <p>₦{item.price}</p>
-                </div>
-              </div>
-            ))}
+            {cartItems.map((item) => {
+               const product = item.productId; 
+                return (
+                  <div className="summary-item" key={product._id}>
+                    <img src={product.image} alt={product.name} />
+                    <div>
+                      <h3>{product.name}</h3>
+                      <p>Qty: {item.quantity}</p>
+                      <p>₦{product.price}</p>
+                    </div>
+                  </div>
+                );
+              })}
 
             <div className="summary-total">
               <h2>Total: ₦{totalPrice.toFixed(2)}</h2>

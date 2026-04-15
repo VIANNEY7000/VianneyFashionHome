@@ -33,6 +33,7 @@ const Login = () => {
 
        localStorage.setItem('token', token);
        localStorage.setItem('role', user.role);
+       localStorage.setItem('userId', user._id);
 
        if (user.role.toLowerCase() === 'customer') {
       navigate('/customer/dashboard');

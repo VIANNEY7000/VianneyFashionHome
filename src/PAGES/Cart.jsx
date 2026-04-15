@@ -81,15 +81,31 @@ const Cart = () => {
 
           {/* ✅ SUMMARY */}
           <div className="cart-summary">
-            <h2>Total: ₦{totalPrice.toFixed(2)}</h2>
+            <h2 style={{color:'green'}}>Total: ₦{totalPrice.toFixed(2)}</h2>
 
             <div className="cart-buttons">
-              <button onClick={clearCart}>
+              <button onClick={clearCart}
+              style={{
+                padding:'10px',
+                background:'red',
+                color:'white',
+                border:'none',
+                borderRadius:'10px'
+              }}
+              >
                 Clear Cart
               </button>
 
               <Link to="/checkout">
-                <button>Proceed to Checkout</button>
+                <button
+                style={{
+                  padding:'10px',
+                  background:'green',
+                  color:'white',
+                  border:'none',
+                  borderRadius:'10px'
+                }}
+                >Proceed to Checkout</button>
               </Link>
             </div>
           </div>

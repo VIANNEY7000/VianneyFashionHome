@@ -16,7 +16,7 @@ const PaymentSuccess = () => {
         const verifyRes = await fetch(`https://vfhome-backend2-3.onrender.com/api/paystack/verify/${reference}`)
         const verifyData = await verifyRes.json()
 
-        if (verifyData.success && verifyData.data.status === "success") {
+        if (verifyData.success) {
           setMessage("Payment successful!")
 
           clearCart()
