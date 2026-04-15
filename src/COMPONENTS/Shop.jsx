@@ -28,7 +28,8 @@ const Shop = () => {
       .includes(search.toLowerCase())
 
     const matchesCategory =
-      category === "all" || product.category === category
+      category === "all" ||
+      product.category?.toLowerCase() === category.toLowerCase()
 
     return matchesSearch && matchesCategory
   })
@@ -109,9 +110,9 @@ const Shop = () => {
                   <h2>{info.name}</h2>
 
                   <p className="product-desc">
-                    {info.discription?.length > 60
-                      ? `${info.discription.slice(0, 60)}...`
-                      : info.discription}
+                    {info.description?.length > 60
+                      ? `${info.description.slice(0, 60)}...`
+                      : info.description}
                   </p>
 
                   <h2 style={{ color: 'green' }}>₦{info.price}</h2>
