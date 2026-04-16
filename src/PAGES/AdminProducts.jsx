@@ -170,8 +170,7 @@ const handleImageChange = (e) => {
             value={formData.price}
             onChange={handleChange}
           />
-
-          <select
+hop          <select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}

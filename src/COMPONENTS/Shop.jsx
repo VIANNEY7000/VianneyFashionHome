@@ -10,17 +10,16 @@ const Shop = () => {
   const [data, setData] = useState([])
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("all")
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   const { addToCart, cartCount, cartItems } = useContext(CartContext)
 
-  // ✅ Check if item is already in cart
   const isInCart = (id) => {
-  return cartItems.some((item) => {
-    const pid = item.productId?._id || item.productId;
-    return pid === id;
-  });
-};
+    return cartItems.some((item) => {
+      const pid = item.productId?._id || item.productId
+      return pid === id
+    })
+  }
 
   const filteredProducts = data.filter((product) => {
     const matchesSearch = product.name
@@ -34,9 +33,8 @@ const Shop = () => {
     return matchesSearch && matchesCategory
   })
 
-  // Fetch products
   useEffect(() => {
-    setLoading(true);
+    setLoading(true)
 
     axios.get("https://vfhome-backend2-3.onrender.com/api/products")
       .then((res) => {
@@ -46,20 +44,18 @@ const Shop = () => {
         console.error(error?.response?.data?.message || "Request failed")
       })
       .finally(() => {
-        setLoading(false);
-      });
+        setLoading(false)
+      })
   }, [])
 
-  // ✅ LOADING SCREEN
   if (loading) {
     return (
       <div className="shop-loading">
-        <div className="loader"></div>
+        <div className="loader">Loading Shop...</div>
       </div>
-    );
+    )
   }
 
-  // ✅ MAIN UI (THIS WAS MISSING RETURN)
   return (
     <div className="menshop_body">
       <div className="shop-controls">
@@ -101,13 +97,18 @@ const Shop = () => {
 
       <div className="menshop">
         {filteredProducts?.map((info) => (
-          <div key={info._id}>
-            <div className='menshop-container'>
-              <div className="shop-box">
-                <Link to={`/product/${info._id}`} style={{ textDecoration: "none", color: "inherit" }}>
+          <div key={info._id} className="menshop-container">
+            <div className="shop-box">
+              <Link
+                to={`/product/${info._id}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <div className="shop-image-wrapper">
                   <img src={info.image} alt={info.name} className="shop-img" />
+                </div>
 
-                  <h2>{info.name}</h2>
+                <div className="shop-text">
+                  <h4 className="product-title">{info.name}</h4>
 
                   <p className="product-desc">
                     {info.description?.length > 60
@@ -115,19 +116,17 @@ const Shop = () => {
                       : info.description}
                   </p>
 
-                  <h2 style={{ color: 'green' }}>₦{info.price}</h2>
-                </Link>
+                  <h4 className="product-price">N{info.price}</h4>
+                </div>
+              </Link>
 
-                <Button
-                  onClick={() => addToCart(info._id)}
-                  disabled={isInCart(info._id)}
-                >
-                  {isInCart(info._id)
-                    ? "Added to Cart ✅"
-                    : "ADD TO CART"}
-                </Button>
-
-              </div>
+              <Button
+                className="add-cart-btn"
+                onClick={() => addToCart(info._id)}
+                disabled={isInCart(info._id)}
+              >
+                {isInCart(info._id) ? "Added to Cart" : "ADD TO CART"}
+              </Button>
             </div>
           </div>
         ))}
