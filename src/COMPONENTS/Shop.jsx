@@ -2,17 +2,23 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import axios from 'axios'
 import './Shop.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MdOutlineShoppingBag } from "react-icons/md";
+import { FiHeart } from "react-icons/fi";
 import { CartContext } from '../CONTEXT/CartContext';
+
+const API = import.meta.env.VITE_PRODUCT_API || "https://vfhome-backend2-3.onrender.com";
 
 const Shop = () => {
   const [data, setData] = useState([])
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("all")
   const [loading, setLoading] = useState(true)
+  const [wishlistIds, setWishlistIds] = useState([])
+  const [wishlistLoadingId, setWishlistLoadingId] = useState("")
 
   const { addToCart, cartCount, cartItems } = useContext(CartContext)
+  const navigate = useNavigate()
 
   const isInCart = (id) => {
     return cartItems.some((item) => {
@@ -20,6 +26,8 @@ const Shop = () => {
       return pid === id
     })
   }
+
+  const isInWishlist = (id) => wishlistIds.includes(id)
 
   const filteredProducts = data.filter((product) => {
     const matchesSearch = product.name
@@ -36,7 +44,7 @@ const Shop = () => {
   useEffect(() => {
     setLoading(true)
 
-    axios.get("https://vfhome-backend2-3.onrender.com/api/products")
+    axios.get(`${API}/api/products`)
       .then((res) => {
         setData(res.data.products || [])
       })
@@ -47,6 +55,75 @@ const Shop = () => {
         setLoading(false)
       })
   }, [])
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      const token = localStorage.getItem("token")
+      const role = localStorage.getItem("role")
+
+      if (!token || role?.toLowerCase() !== "customer") {
+        setWishlistIds([])
+        return
+      }
+
+      try {
+        const res = await axios.get(`${API}/api/auth/wishlist`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+
+        const wishlist = res.data.wishlist || []
+        setWishlistIds(wishlist.map((item) => item._id))
+      } catch (error) {
+        console.error(error?.response?.data?.message || "Failed to fetch wishlist")
+      }
+    }
+
+    fetchWishlist()
+  }, [])
+
+  const handleWishlistToggle = async (productId) => {
+    const token = localStorage.getItem("token")
+    const role = localStorage.getItem("role")
+
+    if (!token || role?.toLowerCase() !== "customer") {
+      alert("Please log in as a customer to use wishlist.")
+      navigate('/login')
+      return
+    }
+
+    try {
+      setWishlistLoadingId(productId)
+
+      if (isInWishlist(productId)) {
+        await axios.delete(`${API}/api/auth/wishlist/${productId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+
+        setWishlistIds((prev) => prev.filter((id) => id !== productId))
+      } else {
+        await axios.post(
+          `${API}/api/auth/wishlist`,
+          { productId },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+
+        setWishlistIds((prev) => [...prev, productId])
+      }
+    } catch (error) {
+      console.error(error?.response?.data?.message || "Wishlist action failed")
+      alert(error?.response?.data?.message || "Wishlist action failed")
+    } finally {
+      setWishlistLoadingId("")
+    }
+  }
 
   if (loading) {
     return (
@@ -99,6 +176,16 @@ const Shop = () => {
         {filteredProducts?.map((info) => (
           <div key={info._id} className="menshop-container">
             <div className="shop-box">
+              <button
+                type="button"
+                className={`wishlist-btn ${isInWishlist(info._id) ? "active" : ""}`}
+                onClick={() => handleWishlistToggle(info._id)}
+                disabled={wishlistLoadingId === info._id}
+                aria-label="Toggle wishlist"
+              >
+                <FiHeart />
+              </button>
+
               <Link
                 to={`/product/${info._id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
@@ -120,13 +207,15 @@ const Shop = () => {
                 </div>
               </Link>
 
-              <Button
-                className="add-cart-btn"
-                onClick={() => addToCart(info._id)}
-                disabled={isInCart(info._id)}
-              >
-                {isInCart(info._id) ? "Added to Cart" : "ADD TO CART"}
-              </Button>
+              <div className="shop-actions">
+                <Button
+                  className="add-cart-btn"
+                  onClick={() => addToCart(info._id)}
+                  disabled={isInCart(info._id)}
+                >
+                  {isInCart(info._id) ? "Added to Cart" : "ADD TO CART"}
+                </Button>
+              </div>
             </div>
           </div>
         ))}

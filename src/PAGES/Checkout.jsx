@@ -54,9 +54,7 @@ const Checkout = () => {
           address: formData.address,
           city: formData.city,
           state: formData.state,
-          country: formData.country,
-          totalPrice,
-          items: cleanCartItems
+          country: formData.country
         }
       }
 
