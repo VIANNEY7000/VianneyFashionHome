@@ -10,25 +10,25 @@ const categories = [
   {
     title: "Men",
     image: menImg,
-    path: "/shop",
+    path: "/customer/shop",
     desc: "Sharp, clean, and everyday essential styles."
   },
   {
     title: "Women",
     image: womenImg,
-    path: "/shop",
+    path: "/customer/shop",
     desc: "Elegant looks designed for confidence and comfort."
   },
   {
     title: "Accessories",
     image: accessoriesImg,
-    path: "/shop",
+    path: "/customer/shop",
     desc: "Finish your outfit with standout details."
   },
   {
     title: "New Arrivals",
     image: newArrivalsImg,
-    path: "/shop",
+    path: "/customer/shop",
     desc: "Fresh pieces curated for the modern trendsetter."
   }
 ];

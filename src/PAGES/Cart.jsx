@@ -24,59 +24,61 @@ const Cart = () => {
       ) : (
         <>
           <div className="cart-items">
-            {cartItems.map((item) => (
-              <div className="cart-item" key={item.productId?._id || item.productId}>
-                <img
-                  src={item.productId.image}
-                  alt={item.productId.name}
-                />
+           {cartItems.map((item) => {
+                if (!item.productId) return null; // 🚫 skip broken item
 
-                <div className="cart-info">
-                  <h2>{item.productId.name}</h2>
-                  <p>{item.productId.discription}</p>
-                  <h3>₦{item.productId.price}</h3>
-
-                  {/* ✅ QUANTITY CONTROLS */}
-                  <div className="qty-controls">
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.productId._id,
-                          item.quantity - 1
-                        )
-                      }
-                      disabled={item.quantity <= 1}
-                    >
-                      -
-                    </button>
-
-                    <span>{item.quantity}</span>
-
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.productId._id,
-                          item.quantity + 1
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-
-                  {/* ✅ REMOVE BUTTON */}
-                  <button
-                    className="remove-btn"
-                  onClick={() => {
-                    console.log("CLICKED", item.productId?._id);
-                    removeFromCart(item.productId?._id);
-                  }}
+                return (
+                  <div
+                    className="cart-item"
+                    key={item.productId?._id || item.productId}
                   >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))}
+                    <img
+                      src={item.productId.image}
+                      alt={item.productId.name}
+                    />
+
+                    <div className="cart-info">
+                      <h2>{item.productId.name}</h2>
+                      <p>{item.productId.discription}</p>
+                      <h3>₦{item.productId.price}</h3>
+
+                      <div className="qty-controls">
+                        <button
+                          onClick={() =>
+                            updateQuantity(
+                              item.productId._id,
+                              item.quantity - 1
+                            )
+                          }
+                          disabled={item.quantity <= 1}
+                        >
+                          -
+                        </button>
+
+                        <span>{item.quantity}</span>
+
+                        <button
+                          onClick={() =>
+                            updateQuantity(
+                              item.productId._id,
+                              item.quantity + 1
+                            )
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeFromCart(item.productId._id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
 
           {/* ✅ SUMMARY */}
