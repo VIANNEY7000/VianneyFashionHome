@@ -1,27 +1,30 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    if (!email.trim()) {
+      setMessage('Please enter your email.');
+      return;
+    }
+
     try {
+      setLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_PRODUCT_API}/api/auth/forgot-password`,
         { email }
       );
 
-      // For testing, backend returns the reset link
-      console.log('Reset Link:', res.data.resetLink);
-      setMessage('Check console for the reset link.');
-
-      // In production, you'd send the link via email
+      setMessage(res.data.message || 'Password reset link sent.');
     } catch (err) {
       console.error(err);
-      setMessage('Error sending reset link.');
+      setMessage(err?.response?.data?.message || 'Error sending reset link.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,7 +37,9 @@ const ForgotPassword = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button onClick={handleSubmit}>Send Reset Link</button>
+      <button onClick={handleSubmit} disabled={loading}>
+        {loading ? 'Sending...' : 'Send Reset Link'}
+      </button>
       <p>{message}</p>
     </div>
   );

@@ -8,23 +8,32 @@ const ResetPassword = () => {
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleReset = async () => {
+    if (!password || !confirmPassword) {
+      alert('Please fill in both password fields');
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
 
     try {
+      setLoading(true);
       await axios.post(
-        `${import.meta.env.VITE_PRODUCT_API}/api/users/reset-password/${token}`,
+        `${import.meta.env.VITE_PRODUCT_API}/api/auth/reset-password/${token}`,
         { password }
       );
       alert('Password reset successful');
       navigate('/login');
     } catch (err) {
       console.error(err);
-      alert('Error resetting password');
+      alert(err?.response?.data?.message || 'Error resetting password');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,7 +52,9 @@ const ResetPassword = () => {
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <button onClick={handleReset}>Reset Password</button>
+      <button onClick={handleReset} disabled={loading}>
+        {loading ? 'Resetting...' : 'Reset Password'}
+      </button>
     </div>
   );
 };
