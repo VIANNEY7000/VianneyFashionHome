@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../STYLES/collection.css'
+import '../STYLES/Collection.css'
 
 const collections = [
   { id: "01", tag: "Signature", title: "Maison Vianney", sub: "The Signature Collection", desc: "Where heritage meets modernity. Our flagship line — timeless silhouettes reimagined for the contemporary wardrobe.", featured: true },
