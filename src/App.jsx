@@ -26,6 +26,7 @@ import CustomerProfile from "./PAGES/CustomerProfile";
 import Collection from "./PAGES/Collection";
 import AboutUs from "./PAGES/AboutUs";
 import ContactUs from "./PAGES/ContactUs";
+import NewArrival from "./PAGES/NewArrival";
 
 // Role-based private route
 const PrivateRoute = ({ children, role }) => {
@@ -58,6 +59,8 @@ function App() {
         <Route path="/collections" element={<Collection />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/new-arrivals" element={<NewArrival />} />
+
 
         {/* Protected Admin Layout */}
         <Route

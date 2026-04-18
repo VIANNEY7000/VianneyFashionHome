@@ -44,6 +44,16 @@ const CustomerSidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </li>
            <li>
             <NavLink
+              to="/#"
+              onClick={() => setSidebarOpen(false)}
+              className={({ isActive }) => (isActive ? "active-link" : "")}
+            >
+              <CiShop style={{ marginRight: "12px" }} />
+              Home
+            </NavLink>
+          </li>
+           <li>
+            <NavLink
               to="/customer/shop"
               onClick={() => setSidebarOpen(false)}
               className={({ isActive }) => (isActive ? "active-link" : "")}
