@@ -45,6 +45,7 @@ const PrivateRoute = ({ children, role }) => {
 function App() {
   return (
     <CartProvider>
+      {/* NORMAL ROUTE */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
