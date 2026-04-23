@@ -15,6 +15,7 @@ const CustomerOrders = () => {
 
     if (!token) {
       navigate("/login");
+      setLoading(false);
       return;
     }
 

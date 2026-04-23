@@ -17,7 +17,7 @@ const Shop = () => {
   const [wishlistIds, setWishlistIds] = useState([])
   const [wishlistLoadingId, setWishlistLoadingId] = useState("")
 
-  const { addToCart, cartCount, cartItems } = useContext(CartContext)
+  const { addToCart, cartCount, cartItems, cartLoaded } = useContext(CartContext)
   const navigate = useNavigate()
 
   const isInCart = (id) => {
@@ -125,7 +125,7 @@ const Shop = () => {
     }
   }
 
-  if (loading) {
+  if (loading || !cartLoaded) {
     return (
       <div className="shop-loading">
         <div className="loader">Loading Shop...</div>
@@ -210,7 +210,7 @@ const Shop = () => {
               <div className="shop-actions">
                 <Button
                   className="add-cart-btn"
-                  onClick={() => addToCart(info._id)}
+                  onClick={() => addToCart(info)}
                   disabled={isInCart(info._id)}
                 >
                   {isInCart(info._id) ? "Added to Cart" : "ADD TO CART"}

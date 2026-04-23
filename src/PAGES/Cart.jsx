@@ -24,90 +24,88 @@ const Cart = () => {
       ) : (
         <>
           <div className="cart-items">
-           {cartItems.map((item) => {
-                if (!item.productId) return null; // 🚫 skip broken item
+            {cartItems.map((item) => {
+              if (!item.productId) return null
 
-                return (
-                  <div
-                    className="cart-item"
-                    key={item.productId?._id || item.productId}
-                  >
-                    <img
-                      src={item.productId.image}
-                      alt={item.productId.name}
-                    />
+              const productId = item.productId?._id || item.productId
 
-                    <div className="cart-info">
-                      <h2>{item.productId.name}</h2>
-                      <p>{item.productId.discription}</p>
-                      <h3>₦{item.productId.price}</h3>
+              return (
+                <div
+                  className="cart-item"
+                  key={productId}
+                >
+                  <img
+                    src={item.productId.image}
+                    alt={item.productId.name}
+                  />
 
-                      <div className="qty-controls">
-                        <button
-                          onClick={() =>
-                            updateQuantity(
-                              item.productId._id,
-                              item.quantity - 1
-                            )
-                          }
-                          disabled={item.quantity <= 1}
-                        >
-                          -
-                        </button>
+                  <div className="cart-info">
+                    <h2>{item.productId.name}</h2>
+                    <p>{item.productId.description}</p>
+                    <h3>N{item.productId.price}</h3>
 
-                        <span>{item.quantity}</span>
+                    <div className="qty-controls">
+                      <button
+                        onClick={() =>
+                          updateQuantity(productId, item.quantity - 1)
+                        }
+                        disabled={item.quantity <= 1}
+                      >
+                        -
+                      </button>
 
-                        <button
-                          onClick={() =>
-                            updateQuantity(
-                              item.productId._id,
-                              item.quantity + 1
-                            )
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
+                      <span>{item.quantity}</span>
 
                       <button
-                        className="remove-btn"
-                        onClick={() => removeFromCart(item.productId._id)}
+                        onClick={() =>
+                          updateQuantity(productId, item.quantity + 1)
+                        }
                       >
-                        Remove
+                        +
                       </button>
                     </div>
+
+                    <button
+                      className="remove-btn"
+                      onClick={() => removeFromCart(productId)}
+                    >
+                      Remove
+                    </button>
                   </div>
-                );
-              })}
+                </div>
+              )
+            })}
           </div>
 
-          {/* ✅ SUMMARY */}
           <div className="cart-summary">
-            <h2 style={{color:'green'}}>Total: ₦{totalPrice.toFixed(2)}</h2>
+            <h2 style={{ color: 'green' }}>Total: N{totalPrice.toFixed(2)}</h2>
 
             <div className="cart-buttons">
-              <button onClick={clearCart}
-              style={{
-                padding:'10px',
-                background:'red',
-                color:'white',
-                border:'none',
-                borderRadius:'10px'
-              }}
+              <button
+                onClick={clearCart}
+                style={{
+                  padding: '10px',
+                  background: 'red',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '10px'
+                }}
               >
                 Clear Cart
               </button>
 
               <Link to="/checkout">
                 <button
-                style={{
-                  padding:'10px',
-                  background:'green',
-                  color:'white',
-                  border:'none',
-                  borderRadius:'10px'
-                }}
-                >Proceed to Checkout</button>
+                  style={{
+                    padding: '10px',
+                    background: 'green',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '10px'
+                  }}
+                >
+                  Proceed to Checkout
+                </button>
               </Link>
             </div>
           </div>

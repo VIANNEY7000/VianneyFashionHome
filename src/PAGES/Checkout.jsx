@@ -3,6 +3,8 @@ import { CartContext } from '../CONTEXT/CartContext'
 import { Link } from 'react-router-dom'
 import './Checkout.css'
 
+const API = import.meta.env.VITE_PRODUCT_API || "https://vfhome-backend2-3.onrender.com";
+
 const Checkout = () => {
   const { cartItems, totalPrice } = useContext(CartContext)
 
@@ -36,13 +38,17 @@ const Checkout = () => {
     setLoading(true)
 
     try {
-      const cleanCartItems = cartItems.map((item) => ({
-        productId: item._id || item.productId,
-        name: item.name,
-        price: item.price,
-        image: item.image,
-        quantity: item.quantity
-      }))
+      const cleanCartItems = cartItems.map((item) => {
+        const product = item.productId
+
+        return {
+          productId: product?._id || product,
+          name: product?.name,
+          price: product?.price,
+          image: product?.image,
+          quantity: item.quantity
+        }
+      })
 
       const payload = {
         email: formData.email,
@@ -50,17 +56,18 @@ const Checkout = () => {
         metadata: {
           userId: localStorage.getItem("userId"),
           fullName: formData.fullName,
+          email: formData.email,
           phone: formData.phone,
           address: formData.address,
           city: formData.city,
           state: formData.state,
-          country: formData.country
+          country: formData.country,
+          totalPrice,
+          items: cleanCartItems
         }
       }
 
-      console.log("Sending payment:", payload)
-
-      const response = await fetch("https://vfhome-backend2-3.onrender.com/api/paystack/initialize", {
+      const response = await fetch(`${API}/api/paystack/initialize`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -68,15 +75,7 @@ const Checkout = () => {
         body: JSON.stringify(payload)
       })
 
-      const text = await response.text()
-
-      let data
-      try {
-        data = JSON.parse(text)
-      } catch (error) {
-        console.error("Server returned non-JSON response:", text)
-        throw new Error("Server did not return valid JSON")
-      }
+      const data = await response.json()
 
       if (data.success) {
         window.location.href = data.authorization_url
@@ -98,7 +97,7 @@ const Checkout = () => {
       {cartItems.length === 0 ? (
         <div className="empty-checkout">
           <h2>No items in cart</h2>
-          <Link to="/shop">Go Shopping</Link>
+          <Link to="/customer/shop">Go Shopping</Link>
         </div>
       ) : (
         <div className="checkout-container">
@@ -125,21 +124,24 @@ const Checkout = () => {
             <h2>Order Summary</h2>
 
             {cartItems.map((item) => {
-               const product = item.productId; 
-                return (
-                  <div className="summary-item" key={product._id}>
-                    <img src={product.image} alt={product.name} />
-                    <div>
-                      <h3>{product.name}</h3>
-                      <p>Qty: {item.quantity}</p>
-                      <p>₦{product.price}</p>
-                    </div>
+              const product = item.productId
+
+              if (!product) return null
+
+              return (
+                <div className="summary-item" key={product._id}>
+                  <img src={product.image} alt={product.name} />
+                  <div>
+                    <h3>{product.name}</h3>
+                    <p>Qty: {item.quantity}</p>
+                    <p>N{product.price}</p>
                   </div>
-                );
-              })}
+                </div>
+              )
+            })}
 
             <div className="summary-total">
-              <h2>Total: ₦{totalPrice.toFixed(2)}</h2>
+              <h2>Total: N{totalPrice.toFixed(2)}</h2>
             </div>
           </div>
         </div>
